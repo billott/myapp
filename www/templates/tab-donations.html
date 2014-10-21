@@ -1,0 +1,19 @@
+<ion-view title="Donations Tab">
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="donation in donations" type="item-text-wrap" href="#/tab/donation/{{donation.id}}">
+
+        <div class="list">
+          <label class="item item-input item-stacked-label">
+            <i class="icon ion-cloud">
+              &nbsp;ID:&nbsp;{{donation.id}}</i>
+          </label>
+          <label class="item item-input">
+            <i class="icon ion-person">&nbsp;Username:&nbsp;{{donation.name}}</i>
+          </label>
+        </div>
+
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

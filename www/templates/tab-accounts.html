@@ -1,0 +1,9 @@
+<ion-view title="Accounts Tab">
+  <ion-content class="padding">
+    <ion-list>
+      <ion-item ng-repeat="account in accounts" type="item-text-wrap" href="#/tab/account/{{account.id}}">
+        {{account.name}}
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

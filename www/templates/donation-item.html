@@ -1,0 +1,35 @@
+<!--
+  This template loads for the 'tab.friend-detail' state (app.js)
+  'friend' is a $scope variable created in the FriendsCtrl controller (controllers.js)
+  The FriendsCtrl pulls data from the Friends service (service.js)
+  The Friends service returns an array of friend data
+-->
+<ion-view title="Donation Detail">
+  <ion-content has-header="true" padding="true">
+
+	  <div class="list">
+
+        <label class="item item-input item-stacked-label">
+          <i class="icon ion-android-more"></i>
+          <span class="input-label">Quantity</span>
+          <input type="text" placeholder="1-{{donation.id}}">
+        </label>
+
+        <label class="item item-input item-stacked-label">
+          <i class="icon ion-checkmark-circled"></i>
+          <span class="input-label">Item Name</span>
+          <input type="text" placeholder="friend name"
+          	value="{{donation.item}}">
+        </label>
+
+        <label class="item item-input item-stacked-label">
+          <i class="icon ion-social-usd"></i>
+          <span class="input-label">Amount</span>
+          <input type="text" placeholder="$xxx.xx">
+        </label>
+      </div>
+
+        <a class="button icon ion-home" href="#/tab/donations"> Donations</a>
+
+  </ion-content>
+</ion-view>

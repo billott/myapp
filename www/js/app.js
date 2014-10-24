@@ -7,20 +7,31 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform, $state) {
+.run(function($ionicPlatform, $state, $rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
     if(window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(false);
-    }
+    };
     if(window.StatusBar) {
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
-    }
+    };
 
     // $state.go('login');
-  });
+
+    $rootScope.$on("stateChangeError", 
+      function ( event, toState, toParams, fromState, fromParams, error) {
+        console.log("stateChangeError");
+        //console.log("event: " + event);
+        console.log("toState");
+        console.log("toParams");
+        console.log("fromState");
+        console.log("fromParams");
+        console.log("\n\nerror: " + error);
+    });
+  })
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -188,18 +199,17 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     })
  
   // if none of the above states are matched, use this as the fallback
-  //$urlRouterProvider.otherwise('/tab/friends');
+  $urlRouterProvider.otherwise('/tab/friends');
 })
-.directive('dragBack', function($ionicGesture, $state) {
-  return {
-          restrict : 'A',
-          link : function(scope, elem, attr) {
-                  $ionicGesture.on('swipe', function(event) {
-                      console.log('Got swiped!');
-                      event.preventDefault();
-                      window.history.back();
-                  }, elem);
-          }
-  }
-})
-;
+  .directive('dragBack', function($ionicGesture, $state) {
+    return {
+              restrict : 'A',
+              link : function(scope, elem, attr) {
+                      $ionicGesture.on('swipe', function(event) {
+                          console.log('Got swiped!');
+                          event.preventDefault();
+                          window.history.back();
+                      }, elem);
+              }
+            }
+  });

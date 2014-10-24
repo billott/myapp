@@ -32,13 +32,13 @@ angular.module('starter.controllers', [])
   // Open the login modal
   $scope.logout = function() {
     //$state.go('tab.friends');
-    $state.go('tab.login');
+    //$state.go('tab.login');
     $scope.modal.show();
   };
 
   // Open the login modal
   $scope.login = function() {
-    $state.go('tab.login');
+    //$state.go('tab.login');
     $scope.modal.show();
   };
 

@@ -1,9 +1,13 @@
 <ion-view title="Accounts Tab">
+<!--  
+      Filename: www/templates/tab-accounts.html
+      Purpose: master view of the Account records
+ -->
   <ion-content class="padding">
     <ion-list>
       <ion-item ng-repeat="account in accounts" type="item-text-wrap" href="#/tab/account/{{account.id}}">
-        {{account.name}}
+        Acct ID {{account.id}}&nbsp;&nbsp;&nbsp;{{account.name}}
       </ion-item>
     </ion-list>
-  </ion-content>
+  </ion-content> 
 </ion-view>

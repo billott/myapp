@@ -1,21 +1,21 @@
 <ion-view title="Leads Tab">
-  <ion-content class="padding">
-    <ion-list>
+<!--  
+      Filename: www/templates/tab-leads.html
+      Purpose: master view of the Leads records
+ -->
+	<ion-content class="padding">
+		<ion-list>
+			<ion-item ng-repeat="lead in leads" href="#/tab/lead/{{lead.id}}">
+				<div class="list">
+					<label class="item item-input">
+						<i class="icon ion-cloud">&nbsp;&nbsp;ID:&nbsp;{{lead.id}}</i>
+					</label>
 
-      <ion-item ng-repeat="lead in leads" type="item-text-wrap" href="#/tab/lead/{{lead.id}}">
-        <div class="list">
-          <label class="item item-input">
-            <i class="icon ion-cloud"></i>&nbsp;&nbsp;ID:&nbsp;{{lead.id}}
-          </label>
-
-          <label class="item item-input">
-            <i class="icon ion-person"></i>
-            <span class="input-label">&nbsp;&nbsp;Lead Name:</span>
-            <input type="text" value={{lead.name}} placeholder="drifty">
-          </label>
-        </div>
-      </ion-item>
-
-    </ion-list>
-  </ion-content>
+					<label class="item item-input">
+						<i class="icon ion-person">&nbsp;&nbsp;Name:&nbsp;{{lead.name}}</i>
+					</label>
+				</div>
+			</ion-item>
+		</ion-list>
+	</ion-content>
 </ion-view>

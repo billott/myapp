@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -18,6 +18,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    // $state.go('login');
   });
 })
 
@@ -29,24 +31,62 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
   // Each state's controller can be found in controllers.js
   $stateProvider
 
+
     // setup an abstract state for the tabs directive
+    // each state word defines level in href path attribute
     .state('tab', {
-      url: "/tab",
+      url: '/tab',
       abstract: true,
       templateUrl: "templates/tabs.html"
     })
 
-    // Each tab has its own nav history stack:
-/*    .state('tab.dash', {
-      url: '/dash',
+    .state('tab.home', {
+      url: "/home",
       views: {
-        'tab-dash': {
-          templateUrl: 'templates/tab-dash.html',
-          controller: 'FriendsCtrl'
+        'tab-home' :{
+          templateUrl: "templates/home.html"
         }
       }
     })
-*/
+
+    .state('tab.search', {
+      url: "/search",
+      views: {
+        'tab-home' :{
+          templateUrl: "templates/search.html"
+        }
+      }
+    })
+
+    .state('tab.settings', {
+      url: "/settings",
+      views: {
+        'tab-home' :{
+          templateUrl: "templates/settings.html"
+        }
+      }
+    })
+
+    .state('tab.help', {
+      url: "/help",
+      views: {
+        'tab-home' :{
+          templateUrl: "templates/help.html"
+        }
+      }
+    })
+
+    .state('tab.login', {
+      url: '/login',
+      views: {
+        'tab-home': {
+          templateUrl: 'templates/login.html',
+          controller: 'LoginCtrl'
+        }
+      }
+    })
+
+    // Each tab has its own nav history stack:
     .state('tab.friends', {
       url: '/friends',
       views: {
@@ -97,7 +137,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       }
     })
 
-    .state('tab.account-detail', {
+    .state('tab.account', {
       url: '/account/:accountId',
       views: {
         'tab-accounts': {
@@ -146,9 +186,20 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
-    ;
-
+ 
   // if none of the above states are matched, use this as the fallback
   //$urlRouterProvider.otherwise('/tab/friends');
-
-});
+})
+.directive('dragBack', function($ionicGesture, $state) {
+  return {
+          restrict : 'A',
+          link : function(scope, elem, attr) {
+                  $ionicGesture.on('swipe', function(event) {
+                      console.log('Got swiped!');
+                      event.preventDefault();
+                      window.history.back();
+                  }, elem);
+          }
+  }
+})
+;

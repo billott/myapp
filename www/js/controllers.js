@@ -1,12 +1,41 @@
 angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {
-	  console.log('test');
+	  console.log('DashCtrl');
 })
 
-.controller('LoginCtrl', function($scope, $state, $ionicModal, 
-	$timeout, $ionicSideMenuDelegate) {
+.controller('LoginCtrl', function($scope, $state, $ionicModal, $timeout, $ionicSideMenuDelegate, Settings) {
+
+  // TODO move function declaration to appCtrl
+  $scope.getTimeStamp = function(){
+    var newDate = new Date();
+    var timeStamp = (newDate).toString().split(' ').splice(1,4).join('_')+ ":" + newDate.getMilliseconds()+', ';
+    return timeStamp;   
+  }
+
+  $scope.logList  = ["log item 1. Nov_06_2014_23:52:02:986, pushNotificationChange().Push Notification Change [object Object]",
+  "log item 2. Nov_06_2014_23:52:02:986, pushNotificationChange().Push Notification Change [object Object]"];
+  
+  $scope.logListCount = $scope.logList.length;
+
+/*
+    $scope.consoleLog('funcName', 'logMessage');
+*/
+  $scope.consoleLog = function(funcName, logMessage) {
+    //$scope.getTimeStamp = function(){return timeStamp}
+    var newDate = new Date();
+    var timeStamp = (newDate).toString().split(' ').splice(1,4).join('_')+ ":" + newDate.getMilliseconds()+', ';
+    var messageText = timeStamp+funcName+'().'+logMessage;
+
+    $scope.logList.push(messageText);
+    console.log('Item count: ' + $scope.logList.length);
+    console.log(messageText);
+  };
+
   // Additional, this controller support other side menu commands
+  $scope.appTitle = "CTFB";
+  $scope.leftMenuTitle = "Welcome User";
+  $scope.rightMenuTitle = "User Tools";
 
   // Form data for the login modal
   $scope.loginData = {};
@@ -20,25 +49,23 @@ angular.module('starter.controllers', [])
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
+    $state.go('tab.home');
     $scope.modal.hide();
   };
 
   // Triggered in the login modal to close it
   $scope.closeLoginRedirect = function() {
     console.log('closeLoginRedirect');
-    $state.go('tab.friends');
+    $state.go('tab.home');
   };
 
   // Open the login modal
   $scope.logout = function() {
-    //$state.go('tab.friends');
-    //$state.go('tab.login');
     $scope.modal.show();
   };
 
   // Open the login modal
   $scope.login = function() {
-    //$state.go('tab.login');
     $scope.modal.show();
   };
 
@@ -47,8 +74,8 @@ angular.module('starter.controllers', [])
     console.log('Doing login - username is: ', $scope.loginData.username);
     console.log('Doing login - password is: ', $scope.loginData.password);
 
-    alert("Doing login - username: <" + $scope.loginData.username +
-    	   ">,  password: <" + $scope.loginData.password + ">")
+    alert("Doing login...\nusername: <" + $scope.loginData.username +
+    	   ">,\npassword: <" + $scope.loginData.password + ">")
 
     $scope.closeLogin();
 
@@ -65,9 +92,9 @@ angular.module('starter.controllers', [])
     console.log('doLoginRedirect - password is: ', $scope.loginData.password);
 
     alert("doLoginRedirect - username: <" + $scope.loginData.username +
-         ">,  password: <" + $scope.loginData.password + ">")
+         ">,  password: <" + $scope.loginData.password + ">");
 
-    $state.go('tab.friends');
+    $state.go('tab.home');
 
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
@@ -82,6 +109,14 @@ angular.module('starter.controllers', [])
 
   $scope.showRightMenu = function () {
     $ionicSideMenuDelegate.toggleRight();
+  };
+
+  $scope.doRefreshLogList = function() {
+    $scope.consoleLog('doRefreshLogList', 'entered');
+    Settings.push({text: 'text-item', checked: false})
+    $scope.logListCount = $scope.logList.length;
+    $scope.$broadcast('scroll.refreshComplete');
+    $scope.$apply();
   };
 
 })
@@ -127,12 +162,84 @@ angular.module('starter.controllers', [])
   $scope.account = Accounts.get($stateParams.accountId);
 })
 
-.controller('DonationsCtrl', function($scope,Donations) {
+.controller('DonationsCtrl', function($scope, Donations) {
   $scope.donations = Donations.all();
 })
 
 .controller('DonationDetailCtrl', function($scope, $stateParams, Donations) {
   $scope.donation = Donations.get($stateParams.donationId);
 })
-;
 
+.controller('LoggingCtrl', function($scope, $stateParams, Donations) {
+})
+
+.controller('SettingsCtrl', function($scope, Settings) {
+
+  var checked_true = { checked: true };
+  var checked_false = { checked: false };
+
+  //$scope.initMode.checked = $scope.settingsList[0].checked;
+  $scope.settingsDefault = { checked: true };
+  $scope.settingsList = Settings.all;
+
+  $scope.settingsInit = function() {
+
+    if ($scope.initMode.checked === true)
+      $scope.settingsDefault = checked_true;
+    else
+      $scope.settingsDefault = checked_false; //{ checked: false };
+
+
+    // initialize all the elements with the settingsList
+    for (var i=0, listSize=$scope.settingsList.length; i<listSize; i++){
+
+      $scope.settingsList[i].checked = true;
+      //$scope.$scope.settingsList[i].text.checked = { checked: true };
+
+      var messageText = i + '.' +$scope.settingsList[i].text
+          + ' checked = <'+ $scope.settingsList[i].checked + '>';
+
+      // defined in loginCtrl 
+      $scope.consoleLog('settingsInit', messageText);
+
+      // Determine how to access list of element names to apply settings
+      // var text = $scope.settingsList[i].text;
+      // var toggleElement = document.getElementById(text);
+      // var checked = { checked: $scope.settingsList[i].checked };
+      // toggleElement = checked;
+      // $scope.consoleLog('settingsInit', 'Email Notification Change ' + $scope.emailNotificationDisplay);
+      // $scope.consoleLog('settingsInit', 'Push Notification Change' + $scope.pushNotificationDisplay);
+    }
+  };
+
+  $scope.settingsChange = function(actionName) {
+    // find settings element for actionName
+    for (var i=0, listSize=$scope.settingsList.length; i<listSize; i++){
+      if ($scope.settingsList[i].text === actionName){
+        $scope.consoleLog(actionName +' Change event: ', $scope.settingsList[i].checked);
+        return;
+      }
+    }
+    $scope.consoleLog('settingsChange', 'event handler - FAILED LOOKUP');
+  };
+
+  $scope.pushNotificationChange = function() {
+    $scope.consoleLog('pushNotificationChange', 'Email Notification Change '+$scope.emailNotificationDisplay);
+    $scope.consoleLog('pushNotificationChange', 'Push Notification Change '+$scope.pushNotificationDisplay);
+  };
+  
+  $scope.initMode = $scope.settingsDefault;
+  $scope.airplaneMode = $scope.settingsDefault;
+  $scope.tabBarDisplay = $scope.settingsDefault;
+  $scope.appHealth = $scope.settingsDefault;
+  $scope.dataSync = $scope.settingsDefault;
+  $scope.userArchive = $scope.settingsDefault;
+  $scope.emailNotificationDisplay = $scope.settingsDefault;
+  $scope.pushNotificationDisplay = $scope.settingsDefault;
+  $scope.alertsDisplay = $scope.settingsDefault;
+  $scope.newsSubscribeDisplay = $scope.settingsDefault;
+
+  $scope.emailNotification = 'Subscribed';
+  
+})
+;

@@ -1,4 +1,4 @@
-<ion-view title="Leads Tab">
+<ion-view title="{{appTitle}} Leads Tab" ng-controller="LoginCtrl">
 <!--  
       Filename: www/templates/tab-leads.html
       Purpose: master view of the Leads records
@@ -10,7 +10,6 @@
 					<label class="item item-input">
 						<i class="icon ion-cloud">&nbsp;&nbsp;ID:&nbsp;{{lead.id}}</i>
 					</label>
-
 					<label class="item item-input">
 						<i class="icon ion-person">&nbsp;&nbsp;Name:&nbsp;{{lead.name}}</i>
 					</label>

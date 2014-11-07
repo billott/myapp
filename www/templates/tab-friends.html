@@ -1,4 +1,4 @@
-<ion-view title="Friends Tab">
+<ion-view title="{{appTitle}} Friends Tab" ng-controller="LoginCtrl">
 <!--  
       Filename: www/templates/tab-friends.html
       Purpose: master view of the Friends records
@@ -6,7 +6,7 @@
   <ion-content class="padding">
 	<ion-list>
 		<ion-item ng-repeat="friend in friends" type="item-text-wrap" href="#/tab/friend/{{friend.id}}">
-			{{friend.name}}
+	        <i class="icon ion-android-contact">&nbsp;&nbsp;{{friend.name}}</i>
 		</ion-item>
 	</ion-list>
   </ion-content>

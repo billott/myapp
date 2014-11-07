@@ -8,6 +8,7 @@
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
 .run(function($ionicPlatform, $state, $rootScope) {
+
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -32,6 +33,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         console.log("\n\nerror: " + error);
     });
   })
+
+  window.addEventListener('loadd', function() {
+    FastClick.attach(document.body);
+  }, false);
+
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -48,41 +54,51 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
     .state('tab', {
       url: '/tab',
       abstract: true,
-      templateUrl: "templates/tabs.html"
+      templateUrl: 'templates/tabs.html'
     })
 
     .state('tab.home', {
-      url: "/home",
+      url: '/home',
       views: {
         'tab-home' :{
-          templateUrl: "templates/home.html"
+          templateUrl: 'templates/home.html'
+        }
+      }
+    })
+
+    .state('tab.logconsole', {
+      url: '/logconsole',
+      views: {
+        'tab-home' :{
+          templateUrl: 'templates/logconsole.html'
         }
       }
     })
 
     .state('tab.search', {
-      url: "/search",
+      url: '/search',
       views: {
         'tab-home' :{
-          templateUrl: "templates/search.html"
+          templateUrl: 'templates/search.html'
         }
       }
     })
 
     .state('tab.settings', {
-      url: "/settings",
+      url: '/settings',
       views: {
         'tab-home' :{
-          templateUrl: "templates/settings.html"
+          templateUrl: 'templates/settings.html',
+          controller: 'LoginCtrl'
         }
       }
     })
 
     .state('tab.help', {
-      url: "/help",
+      url: '/help',
       views: {
         'tab-home' :{
-          templateUrl: "templates/help.html"
+          templateUrl: 'templates/help.html'
         }
       }
     })
@@ -197,9 +213,18 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
         }
       }
     })
+
+    .state('tab.error', {
+      url: '/error',
+      views: {
+        'tab-error': {
+          templateUrl: 'templates/error.html'
+        }
+      }
+    })
  
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/friends');
+  $urlRouterProvider.otherwise('/tab/error');
 })
   .directive('dragBack', function($ionicGesture, $state) {
     return {
@@ -212,4 +237,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
                       }, elem);
               }
             }
-  });
+  })
+  ;

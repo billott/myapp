@@ -1,4 +1,4 @@
-<ion-view title="Account Detail">
+<ion-view title="{{appTitle}} Account Detail Tab" ng-controller="LoginCtrl">
 <!--  
       Filename: www/templates/account-detail.html
       Purpose: detail record view of the Accounts
@@ -14,10 +14,17 @@
         <i class="icon ion-cloud"></i>&nbsp;&nbsp;Account ID:&nbsp;{{account.id}}
       </label>
 
-      <label class="item item-input">
+      <label class="item item-input item-stacked-label">
         <i class="icon ion-person"></i>
-        <span class="input-label">&nbsp;&nbsp;Account Name:&nbsp;{{account.name}}</span>
+        <span class="input-label">&nbsp;&nbsp;Account Name:</span>
+        <br>{{account.name}}</br>
     	</label>
+
+      <label class="item item-input item-stacked-label">
+        <i class="icon ion-android-note"></i>
+        <span class="input-label">&nbsp;&nbsp;Account Detail:</span>
+        <br>{{account.details}}</br>
+      </label>
     </div>
 <!--         <a class="button icon ion-home" href="#/tab/accounts"> Accounts</a>
  -->

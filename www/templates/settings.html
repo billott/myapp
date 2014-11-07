@@ -1,5 +1,39 @@
-<ion-view title="Setting">
-  <ion-content class="padding">
-    <h1>Settings</h1>
+<ion-view title="{{appTitle}} Setting Tab" ng-controller="SettingsCtrl">
+  <ion-content has-header="true" padding="true">
+
+	<div class="item item-divider">Application Settings</div>
+
+	<ion-toggle ng-model="initMode.checked" toggle-class="toggle-calm"
+	ng-change="settingsInit()">Init Mode</ion-toggle>
+
+	<ion-toggle ng-model="airplaneMode.checked" toggle-class="toggle-calm"
+	ng-change="settingsChange('airplaneMode')">Airplane Mode</ion-toggle>
+    
+    <ion-toggle ng-model="tabBarDisplay.checked" toggle-class="toggle-calm"
+    ng-change="settingsChange('tabBarDisplay')">Show Tab Bar</ion-toggle>
+
+	<ion-toggle ng-model="appHealth.checked" toggle-class="toggle-calm"
+	ng-change="settingsChange('appHealth')">Application Health Monitor</ion-toggle>
+
+	<ion-toggle ng-model="dataSync.checked" toggle-class="toggle-calm"
+	ng-change="settingsChange('dataSync')">Data Synchronization</ion-toggle>
+
+	<ion-toggle ng-model="userArchive.checked" toggle-class="toggle-calm"
+	ng-change="settingsChange('userArchive')">User Archive</ion-toggle>
+
+	<div class="item item-divider">Notifications</div>
+
+	<ion-toggle ng-model="emailNotificationDisplay.checked" toggle-class="toggle-calm" 
+	ng-change="emailNotificationChange()">Email Notifications</ion-toggle>
+
+	<ion-toggle ng-model="pushNotificationDisplay.checked" toggle-class="toggle-calm" 
+	ng-change="pushNotificationChange()">Push Notifications</ion-toggle>
+
+	<ion-toggle ng-model="alertsDisplay.checked" toggle-class="toggle-calm"
+	ng-change="alertsChange()">Security Alerts</ion-toggle>
+
+	<ion-toggle ng-model="newsSubscribeDisplay.checked" toggle-class="toggle-calm"
+	ng-change="newsSubscribeChange()">Newsletter Subscription</ion-toggle>
+
   </ion-content>
 </ion-view>
